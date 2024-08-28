@@ -28,10 +28,8 @@ The beat tracking code expects several global functions to exist with `Extern C`
 which it will call during processing:
 
 - `BT_Beat_SetPower(double timeOfRecord, float BeatPower)`
-
-  Called with the time of the next beat?
-  
-  See `/AlgorithmInterface/AlgorithmInterface_Audio.cpp#340`
+  <br/>Called with the time of the next beat?
+  <br/>See `/AlgorithmInterface/AlgorithmInterface_Audio.cpp#340`
 - `BT_Audio_SourceSamplesToDSP(double* outSamples, int SampleCount)`
   Called to populate the audio sample to analyze
   See `/AlgorithmInterface/AlgorithmInterface_Audio.cpp#119`
