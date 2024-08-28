@@ -4977,7 +4977,12 @@ static real_T Beat_Tracking_Stem_var(const real_T x_data[], const int32_T
   return y;
 }
 
-/* Model step function */
+/**
+ * Perform the a beat tracking step, passing a 1024 count array of double
+ * precision floats.
+ *
+ * @param audio Must be 1024 samples long.
+ */
 void Beat_Tracking_Stem_step(void)
 {
   /* local block i/o variables */
@@ -5359,7 +5364,7 @@ void Beat_Tracking_Stem_step(void)
   real_T accum_data[414];
   if (Beat_Tracking_Stem_M->Timing.TaskCounters.TID[1] == 0) {
     /* S-Function (sdspwmmfi2): '<Root>/From Multimedia File' */
-    sErr = GetErrorBuffer(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
+    sErr = 0; //GetErrorBuffer(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
     audio = (void *)&Beat_Tracking_Stem_B.FromMultimediaFile[0U];
     //!@! LibOutputs_FromMMFile(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U],
     //                      GetNullPointer(), audio, GetNullPointer(),
@@ -5674,12 +5679,12 @@ void Beat_Tracking_Stem_step(void)
         (Beat_Tracking_Stem_DW.OSSBuffer_outBufPtrIdx + 128) % 4096;
 
     //!@! Log On Set Summation
-    double VV = 0;
-    for (int i = 0; i < 2048; i++)
-    {
-        VV += Beat_Tracking_Stem_B.OSSBuffer[i];
-    }
-    g_DV[GDV_OSS] = VV;
+    // double VV = 0;
+    // for (int i = 0; i < 2048; i++)
+    // {
+    //     VV += Beat_Tracking_Stem_B.OSSBuffer[i];
+    // }
+    // g_DV[GDV_OSS] = VV;
 
     /* MATLAB Function: '<Root>/Beat Period Estimation' */
     /* MATLAB Function 'Beat Period Estimation': '<S1>:1' */
@@ -6603,7 +6608,7 @@ void Beat_Tracking_Stem_step(void)
     /* End of MATLAB Function: '<Root>/Overall Beat Period Estimation' */
 
     //!@! Log Beat_Tracking_Stem_B.beatPeriodOverall
-    g_DV[GDV_BPM] = Beat_Tracking_Stem_B.beatPeriodOverall;
+    // g_DV[GDV_BPM] = Beat_Tracking_Stem_B.beatPeriodOverall;
   }
 
   /* End of Buffer: '<Root>/OSS Buffer' */
@@ -6810,44 +6815,44 @@ void Beat_Tracking_Stem_step(void)
   Beat_Tracking_Stem_B.OSSBuffer[2047] = ixstart;
 
   /* ToWorkspace: '<Root>/Beat Detected To Workspace' */
-  {
-    double locTime = Beat_Tracking_Stem_M->Timing.taskTime0;
-    ;
-    rt_UpdateStructLogVar((StructLogVar *)
-                          Beat_Tracking_Stem_DW.BeatDetectedToWorkspace_PWORK.LoggedData,
-                          &locTime, &Beat_Tracking_Stem_B.beatDetected);
-  }
+  // {
+  //   double locTime = Beat_Tracking_Stem_M->Timing.taskTime0;
+  //   ;
+  //   rt_UpdateStructLogVar((StructLogVar *)
+  //                         Beat_Tracking_Stem_DW.BeatDetectedToWorkspace_PWORK.LoggedData,
+  //                         &locTime, &Beat_Tracking_Stem_B.beatDetected);
+  // }
 
-  if (Beat_Tracking_Stem_M->Timing.TaskCounters.TID[2] == 0) {
-    /* ToWorkspace: '<Root>/Beat Period Overall To Workspace' */
-    {
-      double locTime = ((Beat_Tracking_Stem_M->Timing.clockTick2) *
-                        0.37151927437641724);
-      ;
-      rt_UpdateStructLogVar((StructLogVar *)
-                            Beat_Tracking_Stem_DW.BeatPeriodOverallToWorkspace_PW.LoggedData,
-                            &locTime, &Beat_Tracking_Stem_B.beatPeriodOverall);
-    }
-
-    /* ToWorkspace: '<Root>/Beat Period To Workspace' */
-    {
-      double locTime = ((Beat_Tracking_Stem_M->Timing.clockTick2) *
-                        0.37151927437641724);
-      ;
-      rt_UpdateStructLogVar((StructLogVar *)
-                            Beat_Tracking_Stem_DW.BeatPeriodToWorkspace_PWORK.LoggedData,
-                            &locTime, &Beat_Tracking_Stem_B.beatPeriod);
-    }
-  }
+  // if (Beat_Tracking_Stem_M->Timing.TaskCounters.TID[2] == 0) {
+  //   /* ToWorkspace: '<Root>/Beat Period Overall To Workspace' */
+  //   {
+  //     double locTime = ((Beat_Tracking_Stem_M->Timing.clockTick2) *
+  //                       0.37151927437641724);
+  //     ;
+  //     rt_UpdateStructLogVar((StructLogVar *)
+  //                           Beat_Tracking_Stem_DW.BeatPeriodOverallToWorkspace_PW.LoggedData,
+  //                           &locTime, &Beat_Tracking_Stem_B.beatPeriodOverall);
+  //   }
+  //
+  //   /* ToWorkspace: '<Root>/Beat Period To Workspace' */
+  //   {
+  //     double locTime = ((Beat_Tracking_Stem_M->Timing.clockTick2) *
+  //                       0.37151927437641724);
+  //     ;
+  //     rt_UpdateStructLogVar((StructLogVar *)
+  //                           Beat_Tracking_Stem_DW.BeatPeriodToWorkspace_PWORK.LoggedData,
+  //                           &locTime, &Beat_Tracking_Stem_B.beatPeriod);
+  //   }
+  // }
 
   /* ToWorkspace: '<Root>/CBSS To Workspace' */
-  {
-    double locTime = Beat_Tracking_Stem_M->Timing.taskTime0;
-    ;
-    rt_UpdateStructLogVar((StructLogVar *)
-                          Beat_Tracking_Stem_DW.CBSSToWorkspace_PWORK.LoggedData,
-                          &locTime, &Beat_Tracking_Stem_B.newCbss[2047]);
-  }
+  // {
+  //   double locTime = Beat_Tracking_Stem_M->Timing.taskTime0;
+  //   ;
+  //   rt_UpdateStructLogVar((StructLogVar *)
+  //                         Beat_Tracking_Stem_DW.CBSSToWorkspace_PWORK.LoggedData,
+  //                         &locTime, &Beat_Tracking_Stem_B.newCbss[2047]);
+  // }
 
   /* Gain: '<Root>/Gain' */
   rtb_Gain = 100.0 * Beat_Tracking_Stem_B.beatDetected;
@@ -6858,20 +6863,20 @@ void Beat_Tracking_Stem_step(void)
   BT_GlobalGraph_Add(0, 1, Beat_Tracking_Stem_B.newCbss[2047]);
 
   /* ToWorkspace: '<Root>/OSS To Workspace' */
-  {
-    double locTime = Beat_Tracking_Stem_M->Timing.taskTime0;
-    ;
-    rt_UpdateStructLogVar((StructLogVar *)
-                          Beat_Tracking_Stem_DW.OSSToWorkspace_PWORK.LoggedData,
-                          &locTime, &Beat_Tracking_Stem_B.oss);
-  }
+  // {
+  //   double locTime = Beat_Tracking_Stem_M->Timing.taskTime0;
+  //   ;
+  //   rt_UpdateStructLogVar((StructLogVar *)
+  //                         Beat_Tracking_Stem_DW.OSSToWorkspace_PWORK.LoggedData,
+  //                         &locTime, &Beat_Tracking_Stem_B.oss);
+  // }
 
   if (Beat_Tracking_Stem_M->Timing.TaskCounters.TID[1] == 0) {
     /* S-Function (sdspToAudioDevice): '<Root>/To Audio Device' */
-    sErr = GetErrorBuffer(&Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U]);
+    sErr = 0; //GetErrorBuffer(&Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U]);
     //LibUpdate_Audio(&Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U],
     //                &Beat_Tracking_Stem_B.FromMultimediaFile[0U], 0, 1024, 0U);
-    BT_Audio_SinkSamplesToPlay((double*)&Beat_Tracking_Stem_B.FromMultimediaFile[0U], 1024);
+    // BT_Audio_SinkSamplesToPlay((double*)&Beat_Tracking_Stem_B.FromMultimediaFile[0U], 1024);
     if (*sErr != 0) {
       rtmSetErrorStatus(Beat_Tracking_Stem_M, sErr);
       rtmSetStopRequested(Beat_Tracking_Stem_M, 1);
@@ -6914,8 +6919,8 @@ void Beat_Tracking_Stem_step(void)
   Beat_Tracking_Stem_DW.test_PreviousInput = svm_sum12;
 
   /* Matfile logging */
-  rt_UpdateTXYLogVars(Beat_Tracking_Stem_M->rtwLogInfo,
-                      (&Beat_Tracking_Stem_M->Timing.taskTime0));
+  // rt_UpdateTXYLogVars(Beat_Tracking_Stem_M->rtwLogInfo,
+  //                     (&Beat_Tracking_Stem_M->Timing.taskTime0));
 
   /* signal main to stop simulation */
   {                                    /* Sample time: [0.0029024943310657597s, 0.0s] */
@@ -6975,20 +6980,20 @@ void Beat_Tracking_Stem_initialize(void)
   }
 
   /* Setup for data logging */
-  {
-    rtliSetLogXSignalInfo(Beat_Tracking_Stem_M->rtwLogInfo, (NULL));
-    rtliSetLogXSignalPtrs(Beat_Tracking_Stem_M->rtwLogInfo, (NULL));
-    rtliSetLogT(Beat_Tracking_Stem_M->rtwLogInfo, "tout");
-    rtliSetLogX(Beat_Tracking_Stem_M->rtwLogInfo, "");
-    rtliSetLogXFinal(Beat_Tracking_Stem_M->rtwLogInfo, "");
-    rtliSetLogVarNameModifier(Beat_Tracking_Stem_M->rtwLogInfo, "rt_");
-    rtliSetLogFormat(Beat_Tracking_Stem_M->rtwLogInfo, 4);
-    rtliSetLogMaxRows(Beat_Tracking_Stem_M->rtwLogInfo, 0);
-    rtliSetLogDecimation(Beat_Tracking_Stem_M->rtwLogInfo, 1);
-    rtliSetLogY(Beat_Tracking_Stem_M->rtwLogInfo, "");
-    rtliSetLogYSignalInfo(Beat_Tracking_Stem_M->rtwLogInfo, (NULL));
-    rtliSetLogYSignalPtrs(Beat_Tracking_Stem_M->rtwLogInfo, (NULL));
-  }
+  // {
+  //   rtliSetLogXSignalInfo(Beat_Tracking_Stem_M->rtwLogInfo, (NULL));
+  //   rtliSetLogXSignalPtrs(Beat_Tracking_Stem_M->rtwLogInfo, (NULL));
+  //   rtliSetLogT(Beat_Tracking_Stem_M->rtwLogInfo, "tout");
+  //   rtliSetLogX(Beat_Tracking_Stem_M->rtwLogInfo, "");
+  //   rtliSetLogXFinal(Beat_Tracking_Stem_M->rtwLogInfo, "");
+  //   rtliSetLogVarNameModifier(Beat_Tracking_Stem_M->rtwLogInfo, "rt_");
+  //   rtliSetLogFormat(Beat_Tracking_Stem_M->rtwLogInfo, 4);
+  //   rtliSetLogMaxRows(Beat_Tracking_Stem_M->rtwLogInfo, 0);
+  //   rtliSetLogDecimation(Beat_Tracking_Stem_M->rtwLogInfo, 1);
+  //   rtliSetLogY(Beat_Tracking_Stem_M->rtwLogInfo, "");
+  //   rtliSetLogYSignalInfo(Beat_Tracking_Stem_M->rtwLogInfo, (NULL));
+  //   rtliSetLogYSignalPtrs(Beat_Tracking_Stem_M->rtwLogInfo, (NULL));
+  // }
 
   /* block I/O */
   (void) memset(((void *) &Beat_Tracking_Stem_B), 0,
@@ -6999,9 +7004,9 @@ void Beat_Tracking_Stem_initialize(void)
                 sizeof(DW_Beat_Tracking_Stem_T));
 
   /* Matfile logging */
-  rt_StartDataLoggingWithStartTime(Beat_Tracking_Stem_M->rtwLogInfo, 0.0,
-    rtmGetTFinal(Beat_Tracking_Stem_M), Beat_Tracking_Stem_M->Timing.stepSize0,
-    (&rtmGetErrorStatus(Beat_Tracking_Stem_M)));
+  // rt_StartDataLoggingWithStartTime(Beat_Tracking_Stem_M->rtwLogInfo, 0.0,
+  //   rtmGetTFinal(Beat_Tracking_Stem_M), Beat_Tracking_Stem_M->Timing.stepSize0,
+  //   (&rtmGetErrorStatus(Beat_Tracking_Stem_M)));
 
   {
     char_T *sErr;
@@ -7009,32 +7014,32 @@ void Beat_Tracking_Stem_initialize(void)
     int32_T mti;
 
     /* Start for S-Function (sdspwmmfi2): '<Root>/From Multimedia File' */
-    sErr = GetErrorBuffer(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
-    CreateHostLibrary("frommmfile.dll",
-                      &Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
-    createAudioInfo(&Beat_Tracking_Stem_DW.FromMultimediaFile_AudioInfo[0U], 1U,
-                    0U, 44100.0, 16, 1, 1024, 0, 0);
-    createVideoInfo(&Beat_Tracking_Stem_DW.FromMultimediaFile_VideoInfo[0U], 0U,
-                    0.0, 0.0, "", 0, 0, 0, 0, 1U, 0, 0, 0);
-    if (*sErr == 0) {
-      LibCreate_FromMMFile(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U],
-                           0, (void *)
-                           "D:\\Projects\\Beat_Tracking\\+Dataset\\open_001.wav",
-                           1,
-                           "G:\\MATLAB\\toolbox\\shared\\multimedia\\bin\\win64\\audio\\audiofilesndfilereaderplugin.dll",
-                           "G:\\MATLAB\\toolbox\\shared\\multimedia\\bin\\win64\\audioslconverter",
-                           &Beat_Tracking_Stem_DW.FromMultimediaFile_AudioInfo
-                           [0U],
-                           &Beat_Tracking_Stem_DW.FromMultimediaFile_VideoInfo
-                           [0U], 0U, 1U, 1U, 0U, 0U);
-    }
+    sErr = 0; //GetErrorBuffer(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
+    // CreateHostLibrary("frommmfile.dll",
+    //                   &Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
+    // createAudioInfo(&Beat_Tracking_Stem_DW.FromMultimediaFile_AudioInfo[0U], 1U,
+    //                 0U, 44100.0, 16, 1, 1024, 0, 0);
+    // createVideoInfo(&Beat_Tracking_Stem_DW.FromMultimediaFile_VideoInfo[0U], 0U,
+    //                 0.0, 0.0, "", 0, 0, 0, 0, 1U, 0, 0, 0);
+    // if (*sErr == 0) {
+    //   LibCreate_FromMMFile(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U],
+    //                        0, (void *)
+    //                        "D:\\Projects\\Beat_Tracking\\+Dataset\\open_001.wav",
+    //                        1,
+    //                        "G:\\MATLAB\\toolbox\\shared\\multimedia\\bin\\win64\\audio\\audiofilesndfilereaderplugin.dll",
+    //                        "G:\\MATLAB\\toolbox\\shared\\multimedia\\bin\\win64\\audioslconverter",
+    //                        &Beat_Tracking_Stem_DW.FromMultimediaFile_AudioInfo
+    //                        [0U],
+    //                        &Beat_Tracking_Stem_DW.FromMultimediaFile_VideoInfo
+    //                        [0U], 0U, 1U, 1U, 0U, 0U);
+    // }
 
-    if (*sErr == 0) {
-      LibStart(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
-    }
+    // if (*sErr == 0) {
+    //   LibStart(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
+    // }
 
     if (*sErr != 0) {
-      DestroyHostLibrary(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
+      // DestroyHostLibrary(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
       if (*sErr != 0) {
         rtmSetErrorStatus(Beat_Tracking_Stem_M, sErr);
         rtmSetStopRequested(Beat_Tracking_Stem_M, 1);
@@ -7090,20 +7095,20 @@ void Beat_Tracking_Stem_initialize(void)
 
       static const char_T rt_ToWksBlockName[] =
         "Beat_Tracking_Stem/Beat Detected To Workspace";
-      Beat_Tracking_Stem_DW.BeatDetectedToWorkspace_PWORK.LoggedData =
-        rt_CreateStructLogVar(
-        Beat_Tracking_Stem_M->rtwLogInfo,
-        0.0,
-        rtmGetTFinal(Beat_Tracking_Stem_M),
-        Beat_Tracking_Stem_M->Timing.stepSize0,
-        (&rtmGetErrorStatus(Beat_Tracking_Stem_M)),
-        "BeatDetected",
-        1,
-        0,
-        1,
-        0.0029024943310657597,
-        &rt_ToWksSignalInfo,
-        rt_ToWksBlockName);
+      // Beat_Tracking_Stem_DW.BeatDetectedToWorkspace_PWORK.LoggedData =
+      //   rt_CreateStructLogVar(
+      //   Beat_Tracking_Stem_M->rtwLogInfo,
+      //   0.0,
+      //   rtmGetTFinal(Beat_Tracking_Stem_M),
+      //   Beat_Tracking_Stem_M->Timing.stepSize0,
+      //   (&rtmGetErrorStatus(Beat_Tracking_Stem_M)),
+      //   "BeatDetected",
+      //   1,
+      //   0,
+      //   1,
+      //   0.0029024943310657597,
+      //   &rt_ToWksSignalInfo,
+      //   rt_ToWksBlockName);
       if (Beat_Tracking_Stem_DW.BeatDetectedToWorkspace_PWORK.LoggedData ==
           (NULL))
         return;
@@ -7157,20 +7162,20 @@ void Beat_Tracking_Stem_initialize(void)
 
       static const char_T rt_ToWksBlockName[] =
         "Beat_Tracking_Stem/Beat Period Overall To Workspace";
-      Beat_Tracking_Stem_DW.BeatPeriodOverallToWorkspace_PW.LoggedData =
-        rt_CreateStructLogVar(
-        Beat_Tracking_Stem_M->rtwLogInfo,
-        0.0,
-        rtmGetTFinal(Beat_Tracking_Stem_M),
-        Beat_Tracking_Stem_M->Timing.stepSize0,
-        (&rtmGetErrorStatus(Beat_Tracking_Stem_M)),
-        "beatPeriodOverallSim",
-        1,
-        0,
-        1,
-        0.37151927437641724,
-        &rt_ToWksSignalInfo,
-        rt_ToWksBlockName);
+      // Beat_Tracking_Stem_DW.BeatPeriodOverallToWorkspace_PW.LoggedData =
+      //   rt_CreateStructLogVar(
+      //   Beat_Tracking_Stem_M->rtwLogInfo,
+      //   0.0,
+      //   rtmGetTFinal(Beat_Tracking_Stem_M),
+      //   Beat_Tracking_Stem_M->Timing.stepSize0,
+      //   (&rtmGetErrorStatus(Beat_Tracking_Stem_M)),
+      //   "beatPeriodOverallSim",
+      //   1,
+      //   0,
+      //   1,
+      //   0.37151927437641724,
+      //   &rt_ToWksSignalInfo,
+      //   rt_ToWksBlockName);
       if (Beat_Tracking_Stem_DW.BeatPeriodOverallToWorkspace_PW.LoggedData ==
           (NULL))
         return;
@@ -7224,20 +7229,20 @@ void Beat_Tracking_Stem_initialize(void)
 
       static const char_T rt_ToWksBlockName[] =
         "Beat_Tracking_Stem/Beat Period To Workspace";
-      Beat_Tracking_Stem_DW.BeatPeriodToWorkspace_PWORK.LoggedData =
-        rt_CreateStructLogVar(
-        Beat_Tracking_Stem_M->rtwLogInfo,
-        0.0,
-        rtmGetTFinal(Beat_Tracking_Stem_M),
-        Beat_Tracking_Stem_M->Timing.stepSize0,
-        (&rtmGetErrorStatus(Beat_Tracking_Stem_M)),
-        "baetPeriodSim",
-        1,
-        0,
-        1,
-        0.37151927437641724,
-        &rt_ToWksSignalInfo,
-        rt_ToWksBlockName);
+      // Beat_Tracking_Stem_DW.BeatPeriodToWorkspace_PWORK.LoggedData =
+      //   rt_CreateStructLogVar(
+      //   Beat_Tracking_Stem_M->rtwLogInfo,
+      //   0.0,
+      //   rtmGetTFinal(Beat_Tracking_Stem_M),
+      //   Beat_Tracking_Stem_M->Timing.stepSize0,
+      //   (&rtmGetErrorStatus(Beat_Tracking_Stem_M)),
+      //   "baetPeriodSim",
+      //   1,
+      //   0,
+      //   1,
+      //   0.37151927437641724,
+      //   &rt_ToWksSignalInfo,
+      //   rt_ToWksBlockName);
       if (Beat_Tracking_Stem_DW.BeatPeriodToWorkspace_PWORK.LoggedData == (NULL))
         return;
     }
@@ -7290,20 +7295,20 @@ void Beat_Tracking_Stem_initialize(void)
 
       static const char_T rt_ToWksBlockName[] =
         "Beat_Tracking_Stem/CBSS To Workspace";
-      Beat_Tracking_Stem_DW.CBSSToWorkspace_PWORK.LoggedData =
-        rt_CreateStructLogVar(
-        Beat_Tracking_Stem_M->rtwLogInfo,
-        0.0,
-        rtmGetTFinal(Beat_Tracking_Stem_M),
-        Beat_Tracking_Stem_M->Timing.stepSize0,
-        (&rtmGetErrorStatus(Beat_Tracking_Stem_M)),
-        "cbssSim",
-        1,
-        0,
-        1,
-        0.0029024943310657597,
-        &rt_ToWksSignalInfo,
-        rt_ToWksBlockName);
+      // Beat_Tracking_Stem_DW.CBSSToWorkspace_PWORK.LoggedData =
+      //   rt_CreateStructLogVar(
+      //   Beat_Tracking_Stem_M->rtwLogInfo,
+      //   0.0,
+      //   rtmGetTFinal(Beat_Tracking_Stem_M),
+      //   Beat_Tracking_Stem_M->Timing.stepSize0,
+      //   (&rtmGetErrorStatus(Beat_Tracking_Stem_M)),
+      //   "cbssSim",
+      //   1,
+      //   0,
+      //   1,
+      //   0.0029024943310657597,
+      //   &rt_ToWksSignalInfo,
+      //   rt_ToWksBlockName);
       if (Beat_Tracking_Stem_DW.CBSSToWorkspace_PWORK.LoggedData == (NULL))
         return;
     }
@@ -7356,35 +7361,35 @@ void Beat_Tracking_Stem_initialize(void)
 
       static const char_T rt_ToWksBlockName[] =
         "Beat_Tracking_Stem/OSS To Workspace";
-      Beat_Tracking_Stem_DW.OSSToWorkspace_PWORK.LoggedData =
-        rt_CreateStructLogVar(
-        Beat_Tracking_Stem_M->rtwLogInfo,
-        0.0,
-        rtmGetTFinal(Beat_Tracking_Stem_M),
-        Beat_Tracking_Stem_M->Timing.stepSize0,
-        (&rtmGetErrorStatus(Beat_Tracking_Stem_M)),
-        "ossSim",
-        1,
-        0,
-        1,
-        0.0029024943310657597,
-        &rt_ToWksSignalInfo,
-        rt_ToWksBlockName);
+      // Beat_Tracking_Stem_DW.OSSToWorkspace_PWORK.LoggedData =
+      //   rt_CreateStructLogVar(
+      //   Beat_Tracking_Stem_M->rtwLogInfo,
+      //   0.0,
+      //   rtmGetTFinal(Beat_Tracking_Stem_M),
+      //   Beat_Tracking_Stem_M->Timing.stepSize0,
+      //   (&rtmGetErrorStatus(Beat_Tracking_Stem_M)),
+      //   "ossSim",
+      //   1,
+      //   0,
+      //   1,
+      //   0.0029024943310657597,
+      //   &rt_ToWksSignalInfo,
+      //   rt_ToWksBlockName);
       if (Beat_Tracking_Stem_DW.OSSToWorkspace_PWORK.LoggedData == (NULL))
         return;
     }
 
     /* Start for S-Function (sdspToAudioDevice): '<Root>/To Audio Device' */
-    sErr = GetErrorBuffer(&Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U]);
-    CreateHostLibrary("hostlibaudio.dll",
-                      &Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U]);
-    if (*sErr == 0) {
-      LibCreate_Audio(&Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U], 0,
-                      "Default", 1, 1, 1, 44100.0, 1, 4096, 44100, 1024, 0, NULL);
-    }
+    sErr = 0; //GetErrorBuffer(&Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U]);
+    // CreateHostLibrary("hostlibaudio.dll",
+    //                   &Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U]);
+    // if (*sErr == 0) {
+    //   LibCreate_Audio(&Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U], 0,
+    //                   "Default", 1, 1, 1, 44100.0, 1, 4096, 44100, 1024, 0, NULL);
+    // }
 
     if (*sErr != 0) {
-      DestroyHostLibrary(&Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U]);
+    //   DestroyHostLibrary(&Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U]);
       if (*sErr != 0) {
         rtmSetErrorStatus(Beat_Tracking_Stem_M, sErr);
         rtmSetStopRequested(Beat_Tracking_Stem_M, 1);
@@ -7394,7 +7399,7 @@ void Beat_Tracking_Stem_initialize(void)
     /* End of Start for S-Function (sdspToAudioDevice): '<Root>/To Audio Device' */
 
     /* InitializeConditions for S-Function (sdspwmmfi2): '<Root>/From Multimedia File' */
-    LibReset(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
+    // LibReset(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
 
     /* InitializeConditions for Buffer: '<Root>/Audio Frame Buffer' */
     memset(&Beat_Tracking_Stem_DW.AudioFrameBuffer_CircBuf[0], 0, sizeof(real_T)
@@ -7439,27 +7444,27 @@ void Beat_Tracking_Stem_terminate(void)
   char_T *sErr;
 
   /* Terminate for S-Function (sdspwmmfi2): '<Root>/From Multimedia File' */
-  sErr = GetErrorBuffer(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
-  LibTerminate(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
+  sErr = 0; //GetErrorBuffer(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
+  // LibTerminate(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
   if (*sErr != 0) {
     rtmSetErrorStatus(Beat_Tracking_Stem_M, sErr);
     rtmSetStopRequested(Beat_Tracking_Stem_M, 1);
   }
 
-  LibDestroy(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U], 0);
-  DestroyHostLibrary(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
+  // LibDestroy(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U], 0);
+  // DestroyHostLibrary(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
 
   /* End of Terminate for S-Function (sdspwmmfi2): '<Root>/From Multimedia File' */
   /* Terminate for S-Function (sdspToAudioDevice): '<Root>/To Audio Device' */
-  sErr = GetErrorBuffer(&Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U]);
-  LibTerminate(&Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U]);
+  sErr = 0; //GetErrorBuffer(&Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U]);
+  // LibTerminate(&Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U]);
   if (*sErr != 0) {
     rtmSetErrorStatus(Beat_Tracking_Stem_M, sErr);
     rtmSetStopRequested(Beat_Tracking_Stem_M, 1);
   }
 
-  LibDestroy(&Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U], 1);
-  DestroyHostLibrary(&Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U]);
+  // LibDestroy(&Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U], 1);
+  // DestroyHostLibrary(&Beat_Tracking_Stem_DW.ToAudioDevice_AudioDeviceLib[0U]);
 
   /* End of Terminate for S-Function (sdspToAudioDevice): '<Root>/To Audio Device' */
 }

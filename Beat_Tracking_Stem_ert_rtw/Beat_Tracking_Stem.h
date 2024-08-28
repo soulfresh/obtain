@@ -48,7 +48,8 @@
 #include "Beat_Tracking_Stem_types.h"
 
 //The interface between the Beat Tracking DSP and the GUI app.
-#include "AlgorithmInterface.h"
+// #include "AlgorithmInterface.h"
+#include "Port_Unified.h"
 
 /* Shared type includes */
 #include "multiword_types.h"
@@ -212,6 +213,13 @@ extern DW_Beat_Tracking_Stem_T Beat_Tracking_Stem_DW;
 extern void Beat_Tracking_Stem_initialize(void);
 extern void Beat_Tracking_Stem_step(void);
 extern void Beat_Tracking_Stem_terminate(void);
+
+/* Functions that need to be available */
+void BT_Audio_SourceSamplesToDSP(double * audio, int sampleCount);
+void BT_GlobalGraph_Add(int graph, int lane, double flux);
+void BT_Beat_SetPower(double taskTime0, float gain);
+void BT_GlobalGraph_SetTime(double taskTime0);
+void BT_Audio_AfterDSPStep();
 
 /* Real-time Model object */
 extern RT_MODEL_Beat_Tracking_Stem_T *const Beat_Tracking_Stem_M;
