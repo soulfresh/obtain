@@ -31,18 +31,18 @@ which it will call during processing:
   <br/>Called with the time of the next beat?
   <br/>See `/AlgorithmInterface/AlgorithmInterface_Audio.cpp#340`
 - `BT_Audio_SourceSamplesToDSP(double* outSamples, int SampleCount)`
-  Called to populate the audio sample to analyze
-  See `/AlgorithmInterface/AlgorithmInterface_Audio.cpp#119`
+  <br/>Called to populate the audio sample to analyze
+  <br/>See `/AlgorithmInterface/AlgorithmInterface_Audio.cpp#119`
 - `BT_Audio_SinkSamplesToPlay(const double* outSamples, int SampleCount)`
-  Called with the output audio from the DSP audio. I'm not sure why it outputs
+  <br/>Called with the output audio from the DSP audio. I'm not sure why it outputs
   audio but it might just be an audio through for when the GUI plays back audio
   from a file.
-  See `/AlgorithmInterface/AlgorithmInterface_Audio.cpp#220`
+  <br/>See `/AlgorithmInterface/AlgorithmInterface_Audio.cpp#220`
 - `BT_Audio_AfterDSPStep()`
-  Called after DSP processing for a single frame is complete.
-  See `/AlgorithmInterface/AlgorithmInterface_Audio.cpp#395`
+  <br/>Called after DSP processing for a single frame is complete.
+  <br/>See `/AlgorithmInterface/AlgorithmInterface_Audio.cpp#395`
 - `BT_GlobalGraph_Add(int Idx, int Lane, double val)`
-  Called with logging information during the DSP processing
+  <br/>Called with logging information during the DSP processing
     | Idx | Lane | Description         |
     | --- | ---- | ------------------- |
     | 0   | 0    | beats detected      |
@@ -51,8 +51,8 @@ which it will call during processing:
 
   See `/AppGUI/Graphs.cpp#50`
 - `BT_GlobalGraph_SetTime(double T)`
-  Called with the duration each frame took to process?
-  See `/AppGUI/Graphs.cpp#63`
+  <br/>Called with the duration each frame took to process?
+  <br/>See `/AppGUI/Graphs.cpp#63`
 
 To run the beat tracking algorithm, you can follow the steps in
 `BeatTrackingMain` in file `/Beat_TrackingStem_ert_rtw/ert_main.cpp`. The code
