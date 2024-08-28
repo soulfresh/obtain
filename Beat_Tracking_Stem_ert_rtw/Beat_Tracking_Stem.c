@@ -4983,7 +4983,13 @@ static real_T Beat_Tracking_Stem_var(const real_T x_data[], const int32_T
  *
  * @param audio Must be 1024 samples long.
  */
-void Beat_Tracking_Stem_step(void)
+void Beat_Tracking_Stem_step(
+  void BT_Audio_SourceSamplesToDSP(double* audio, int sampleCount),
+  void BT_Beat_SetPower(double time, float gain),
+  void BT_Audio_AfterDSPStep(),
+  void BT_GlobalGraph_Add(int graph, int lane, double value),
+  void BT_GlobalGraph_SetTime(double time)
+)
 {
   /* local block i/o variables */
   real_T rtb_Gain;

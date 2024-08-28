@@ -48,6 +48,7 @@ which it will call during processing:
     | 0   | 0    | beats detected      |
     | 0   | 1    | CBSS score          |
     | 1   | 0    | flux function value |
+
   See `/AppGUI/Graphs.cpp#50`
 - `BT_GlobalGraph_SetTime(double T)`
   Called with the duration each frame took to process?

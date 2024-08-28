@@ -211,15 +211,21 @@ extern DW_Beat_Tracking_Stem_T Beat_Tracking_Stem_DW;
 
 /* Model entry point functions */
 extern void Beat_Tracking_Stem_initialize(void);
-extern void Beat_Tracking_Stem_step(void);
+extern void Beat_Tracking_Stem_step(
+  void fillBuffer(double* audio, int sampleCount),
+  void onBeat(double time, float gain),
+  void stepComplete(),
+  void logAdd(int graph, int lane, double value),
+  void logTime(double time)
+);
 extern void Beat_Tracking_Stem_terminate(void);
 
 /* Functions that need to be available */
-void BT_Audio_SourceSamplesToDSP(double * audio, int sampleCount);
-void BT_GlobalGraph_Add(int graph, int lane, double flux);
-void BT_Beat_SetPower(double taskTime0, float gain);
-void BT_GlobalGraph_SetTime(double taskTime0);
-void BT_Audio_AfterDSPStep();
+// void BT_Audio_SourceSamplesToDSP(double * audio, int sampleCount);
+// void BT_GlobalGraph_Add(int graph, int lane, double flux);
+// void BT_Beat_SetPower(double taskTime0, float gain);
+// void BT_GlobalGraph_SetTime(double taskTime0);
+// void BT_Audio_AfterDSPStep();
 
 /* Real-time Model object */
 extern RT_MODEL_Beat_Tracking_Stem_T *const Beat_Tracking_Stem_M;
