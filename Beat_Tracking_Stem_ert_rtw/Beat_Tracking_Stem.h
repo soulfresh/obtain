@@ -32,6 +32,7 @@
 #ifndef RTW_HEADER_Beat_Tracking_Stem_h_
 #define RTW_HEADER_Beat_Tracking_Stem_h_
 #include <float.h>
+#include <functional>
 #include <math.h>
 #include <stddef.h>
 #include <string.h>
@@ -216,22 +217,30 @@ extern DW_Beat_Tracking_Stem_T Beat_Tracking_Stem_DW;
 struct Beat_Tracking_Stem_step_result {
   double beatTime;
   float beatGain;
+  double flux1;
+  double onsetSignalStrengthSum;
+  double beatPeriodOverall;
+  double beatDetected;
+  double cumulativeBeatStrengthSignal;
+  double endTime;
 };
 
 /* Model entry point functions */
-extern void Beat_Tracking_Stem_initialize(void);
-extern struct Beat_Tracking_Stem_step_result Beat_Tracking_Stem_step(
-    /**
-     * A buffer of 1024 samples to process.
-     */
-    double *audio
-    // void fillBuffer(double* audio, int sampleCount),
-    // void onBeat(double time, float gain),
-    // void stepComplete(),
-    // void logAdd(int graph, int lane, double value),
-    // void logTime(double time)
+void Beat_Tracking_Stem_initialize(void);
+void Beat_Tracking_Stem_step(
+  /**
+   * A buffer of 1024 samples to process.
+   */
+  // double *audio
+  std::function<void(double *audio, int sampleCount)> fillBuffer,
+  std::function<void(double time, float gain)> onBeat,
+  std::function<void(double oss)> onOnsetSignalStrength,
+  std::function<void(double beatPeriod)> onBeatPeriod,
+  std::function<void()> stepComplete,
+  std::function<void(int graph, int lane, double value)> logAdd,
+  std::function<void(double time)> logTime
 );
-extern void Beat_Tracking_Stem_terminate(void);
+void Beat_Tracking_Stem_terminate(void);
 
 /* Functions that need to be available */
 // void BT_Audio_SourceSamplesToDSP(double * audio, int sampleCount);

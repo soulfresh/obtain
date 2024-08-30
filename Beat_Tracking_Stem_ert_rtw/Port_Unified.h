@@ -22,42 +22,38 @@
 #include "rtwtypes.h"
 #include "builtin_typeid_types.h"
 
-struct tagRTWLogSignalInfo
-{
-	int_T  d0;
-	int_T* d1;
-	int_T* d2;
-	int_T* d3;
-	boolean_T* d4;
-	void** d5;
-	int_T* d6;
-	BuiltInDTypeId* d7;
-	int_T* d8, *d9;
-	const char_T ** d10;
-	void* d11, *d12, *d13, *d14, *d15, *d16, *d17;
+struct tagRTWLogSignalInfo {
+  int_T d0;
+  int_T *d1;
+  int_T *d2;
+  int_T *d3;
+  boolean_T *d4;
+  void **d5;
+  int_T *d6;
+  BuiltInDTypeId *d7;
+  int_T *d8, *d9;
+  const char_T **d10;
+  void *d11, *d12, *d13, *d14, *d15, *d16, *d17;
 };
 typedef struct tagRTWLogSignalInfo RTWLogSignalInfo;
 
-struct tagRTWLogInfo
-{
-	int dummy;
-	void* loggingInterval;
+struct tagRTWLogInfo {
+  int dummy;
+  void *loggingInterval;
 };
 typedef struct tagRTWLogInfo RTWLogInfo;
 
-struct tagStructLogVar
-{
-	int dummy;
+struct tagStructLogVar {
+  int dummy;
 };
 typedef struct tagStructLogVar StructLogVar;
 
-struct tagLogVar
-{
-	int dummy;
+struct tagLogVar {
+  int dummy;
 };
 typedef struct tagLogVar LogVar;
 
-#define round round2
+// #define round round2
 
 // #define GetErrorBuffer(...)			("")
 // #define LibOutputs_FromMMFile		(void)__noop
@@ -95,4 +91,4 @@ typedef struct tagLogVar LogVar;
 // #define LibDestroy                  (void)__noop
 // #define LibTerminate                (void)__noop
 
-#define NO_LOGVALDIMS				(-1)
+#define NO_LOGVALDIMS (-1)
