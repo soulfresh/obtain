@@ -220,7 +220,7 @@ struct Beat_Tracking_Stem_step_result {
 
 /* Model entry point functions */
 extern void Beat_Tracking_Stem_initialize(void);
-extern Beat_Tracking_Stem_step_result Beat_Tracking_Stem_step(
+extern struct Beat_Tracking_Stem_step_result Beat_Tracking_Stem_step(
     /**
      * A buffer of 1024 samples to process.
      */

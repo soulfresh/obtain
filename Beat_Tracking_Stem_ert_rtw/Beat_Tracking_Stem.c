@@ -7103,14 +7103,14 @@ void Beat_Tracking_Stem_initialize(void)
         rt_ToWksComplexSignals,
         rt_ToWksFrameData,
 
-        { rt_ToWksLabels },
+         rt_ToWksLabels ,
         (NULL),
         (NULL),
         (NULL),
 
-        { (NULL) },
+         (NULL) ,
 
-        { (NULL) },
+         (NULL) ,
         (NULL),
         (NULL)
       };
@@ -7170,14 +7170,14 @@ void Beat_Tracking_Stem_initialize(void)
         rt_ToWksComplexSignals,
         rt_ToWksFrameData,
 
-        { rt_ToWksLabels },
+         rt_ToWksLabels ,
         (NULL),
         (NULL),
         (NULL),
 
-        { (NULL) },
+         (NULL) ,
 
-        { (NULL) },
+         (NULL) ,
         (NULL),
         (NULL)
       };
@@ -7237,14 +7237,14 @@ void Beat_Tracking_Stem_initialize(void)
         rt_ToWksComplexSignals,
         rt_ToWksFrameData,
 
-        { rt_ToWksLabels },
+         rt_ToWksLabels ,
         (NULL),
         (NULL),
         (NULL),
 
-        { (NULL) },
+         (NULL) ,
 
-        { (NULL) },
+         (NULL) ,
         (NULL),
         (NULL)
       };
@@ -7303,14 +7303,14 @@ void Beat_Tracking_Stem_initialize(void)
         rt_ToWksComplexSignals,
         rt_ToWksFrameData,
 
-        { rt_ToWksLabels },
+         rt_ToWksLabels ,
         (NULL),
         (NULL),
         (NULL),
 
-        { (NULL) },
+         (NULL) ,
 
-        { (NULL) },
+         (NULL) ,
         (NULL),
         (NULL)
       };
@@ -7369,14 +7369,14 @@ void Beat_Tracking_Stem_initialize(void)
         rt_ToWksComplexSignals,
         rt_ToWksFrameData,
 
-        { rt_ToWksLabels },
+         rt_ToWksLabels ,
         (NULL),
         (NULL),
         (NULL),
 
-        { (NULL) },
+         (NULL) ,
 
-        { (NULL) },
+         (NULL) ,
         (NULL),
         (NULL)
       };
