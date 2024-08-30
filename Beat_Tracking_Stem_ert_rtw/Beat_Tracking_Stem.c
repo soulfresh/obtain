@@ -4983,18 +4983,22 @@ static real_T Beat_Tracking_Stem_var(const real_T x_data[], const int32_T
  *
  * @param audio Must be 1024 samples long.
  */
-void Beat_Tracking_Stem_step(
-  void BT_Audio_SourceSamplesToDSP(double* audio, int sampleCount),
-  void BT_Beat_SetPower(double time, float gain),
-  void BT_Audio_AfterDSPStep(),
-  void BT_GlobalGraph_Add(int graph, int lane, double value),
-  void BT_GlobalGraph_SetTime(double time)
+struct Beat_Tracking_Stem_step_result Beat_Tracking_Stem_step(
+  /**
+   * Must be 1024 samples long
+   */
+  double * audio
+  // void BT_Audio_SourceSamplesToDSP(double* audio, int sampleCount),
+  // void BT_Beat_SetPower(double time, float gain),
+  // void BT_Audio_AfterDSPStep(),
+  // void BT_GlobalGraph_Add(int graph, int lane, double value),
+  // void BT_GlobalGraph_SetTime(double time)
 )
 {
   /* local block i/o variables */
   real_T rtb_Gain;
   char_T *sErr;
-  void *audio;
+  // void *audio;
   int32_T uyIdx;
   static const real_T hamm[1024] = { 0.080000000000000016, 0.080008676307589288,
     0.080034704903059861, 0.080078084804533267, 0.080138814375586065,
@@ -5371,11 +5375,18 @@ void Beat_Tracking_Stem_step(
   if (Beat_Tracking_Stem_M->Timing.TaskCounters.TID[1] == 0) {
     /* S-Function (sdspwmmfi2): '<Root>/From Multimedia File' */
     sErr = 0; //GetErrorBuffer(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U]);
-    audio = (void *)&Beat_Tracking_Stem_B.FromMultimediaFile[0U];
+    // audio = (void *)&Beat_Tracking_Stem_B.FromMultimediaFile[0U];
     //!@! LibOutputs_FromMMFile(&Beat_Tracking_Stem_DW.FromMultimediaFile_HostLib[0U],
     //                      GetNullPointer(), audio, GetNullPointer(),
     //                      GetNullPointer(), GetNullPointer());
-    BT_Audio_SourceSamplesToDSP((double*)audio, 1024);
+    // BT_Audio_SourceSamplesToDSP((double*)audio, 1024);
+
+    // Copy audio into the processing buffer. Ideally we wouldn't need to do
+    // this copy.
+    // for(int i = 0; i < 1024; i++) {
+    //   Beat_Tracking_Stem_B.FromMultimediaFile[i] = audio[i];
+    // }
+    memcpy(audio, &Beat_Tracking_Stem_B.FromMultimediaFile[0U], 1024);
 
     if (*sErr != 0) {
       rtmSetErrorStatus(Beat_Tracking_Stem_M, sErr);
@@ -5511,7 +5522,7 @@ void Beat_Tracking_Stem_step(
   flux = Beat_Tracking_Stem_sum_m(Beat_Tracking_Stem_B.diff);
 
   //!@! Log flux
-  BT_GlobalGraph_Add(1, 0, flux);
+  // BT_GlobalGraph_Add(1, 0, flux);
 
   /* End of MATLAB Function: '<Root>/Flux Calculation' */
 
@@ -6864,9 +6875,9 @@ void Beat_Tracking_Stem_step(
   rtb_Gain = 100.0 * Beat_Tracking_Stem_B.beatDetected;
 
   //!@! Log
-  BT_Beat_SetPower(Beat_Tracking_Stem_M->Timing.taskTime0, (float)rtb_Gain);
-  BT_GlobalGraph_Add(0, 0, Beat_Tracking_Stem_B.beatDetected * 20);
-  BT_GlobalGraph_Add(0, 1, Beat_Tracking_Stem_B.newCbss[2047]);
+  // BT_Beat_SetPower(Beat_Tracking_Stem_M->Timing.taskTime0, (float)rtb_Gain);
+  // BT_GlobalGraph_Add(0, 0, Beat_Tracking_Stem_B.beatDetected * 20);
+  // BT_GlobalGraph_Add(0, 1, Beat_Tracking_Stem_B.newCbss[2047]);
 
   /* ToWorkspace: '<Root>/OSS To Workspace' */
   // {
@@ -6960,8 +6971,13 @@ void Beat_Tracking_Stem_step(
   rate_scheduler();
 
   //!@!
-  BT_GlobalGraph_SetTime(Beat_Tracking_Stem_M->Timing.taskTime0);
-  BT_Audio_AfterDSPStep();
+  // BT_GlobalGraph_SetTime(Beat_Tracking_Stem_M->Timing.taskTime0);
+  // BT_Audio_AfterDSPStep();
+  struct Beat_Tracking_Stem_step_result out = {
+    Beat_Tracking_Stem_M->Timing.taskTime0, 
+    (float)rtb_Gain
+  };
+  return out;
 }
 
 /* Model initialize function */
